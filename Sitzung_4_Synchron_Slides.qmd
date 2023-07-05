@@ -23,10 +23,13 @@ csl: apa.csl
 ---
 ## Heutige Sitzung {.center}
 <br>
+[{{< fa dice >}}]{.imp} Verlosung
+
+<br>
 [{{< fa brain >}}]{.imp} »Einfachere« Klausuraufgaben
 
 <br>
-[{{< fa arrows-turn-to-dots >}}]{.imp} Verteilungsbeschreibung mit Software + Ihren Daten
+[{{< fa arrows-turn-to-dots >}}]{.imp} Verteilungsbeschreibung mit Software + Daten Ihrer Kommiliton\*innen
 
 <br>
 [{{< fa down-long >}}]{.imp} Vertiefung: Normalverteilung  
@@ -133,6 +136,26 @@ figure>figcaption {
 ```
 
 
+## Auslosung {.smaller}
+```{r}
+#| echo: true
+#| eval: true
+
+library(tidyverse)
+set.seed(2505)
+source("https://soscisurvey.ph-karlsruhe.de/merk003/?act=IGsoBevw5zOT9xMcS4AOlzWb&rScript")  
+
+ds |> 
+  filter(lubridate::ymd_hms(STARTED) > lubridate::ymd_hms("2023-06-28 10:00:00") &
+           FINISHED == 1 &
+           SC01 == "Ja, ich habe den Datenschutz gelesen und bin damit einverstanden.") |> 
+  sample_n(1) |> 
+  mutate(`Gewinnercodes (ohne die letzten drei Stellen)` = substr(ZG03_01, 1, 9)) |> 
+  dplyr::select(`Gewinnercodes (ohne die letzten drei Stellen)`)
+```
+
+
+
 
 ## {{< fa brain >}} Aktivierung Ihres Vorwissens! {.center}
 
@@ -182,24 +205,6 @@ image(qrencode_raster("https://bit.ly/merk006"),
 ```
 
 
-
-## Auslosung {.smaller}
-```{r}
-#| echo: true
-#| eval: true
-
-library(tidyverse)
-set.seed(2505)
-source("https://soscisurvey.ph-karlsruhe.de/Mathematikarbeiten/?act=e1g9LMzN1JsM9XzCKPrEzeYQ&rScript")  
-
-ds |> 
-  filter(lubridate::ymd_hms(STARTED) > lubridate::ymd_hms("2023-05-03 10:00:00") &
-           FINISHED == 1 &
-           SC01 == "Ja, ich habe den Datenschutz gelesen und bin damit einverstanden.") |> 
-  sample_n(1) |> 
-  mutate(`Gewinnercodes (ohne die letzten drei Stellen)` = substr(ZG03_01, 1, 9)) |> 
-  dplyr::select(`Gewinnercodes (ohne die letzten drei Stellen)`)
-```
 
 
 ## Literatur
